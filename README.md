@@ -2,7 +2,7 @@
 
 **The world record fastest exact subset sum solver and subset sum algorithm. A breakthrough discovery solving the NP-complete subset sum problem at unprecedented scale -- up to 70 elements with values reaching 1 quadrillion. Open source, standalone binary available.**
 
-[![GitHub](https://img.shields.io/badge/GitHub-rehantheorylab--pixel/ZPP-Ultra--Subset--Sum--Solver-blue)](https://github.com/rehantheorylab-pixel/ZPP-Subset-Sum-Solver-Algorithm)
+[![GitHub](https://img.shields.io/badge/GitHub-rehantheorylab--pixel/ZPP-Ultra--Subset--Sum--Solver-blue)](https://github.com/rehantheorylab-pixel/exact-subset-sum-solver)
 [![License](https://img.shields.io/badge/license-MIT-green)](zpp_rust/LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.85%2B-orange)](zpp_rust/)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)](Z++.py)
@@ -187,7 +187,7 @@ Memory usage stays under 12GB for all tested instances.
 
 **Can I use this commercially?** Yes, MIT license. See `zpp_rust/LICENSE`.
 
-**How do I cite this?** Repository: `github.com/rehantheorylab-pixel/ZPP-Subset-Sum-Solver-Algorithm`
+**How do I cite this?** Repository: `github.com/rehantheorylab-pixel/exact-subset-sum-solver`
 
 ---
 
@@ -212,3 +212,4 @@ Original contributions:
 ---
 
 *Built by Rehan -- the world record subset sum solver.*
+
