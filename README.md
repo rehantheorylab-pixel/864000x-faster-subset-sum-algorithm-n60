@@ -312,4 +312,4 @@ Original contributions:
 
 ---
 
-*Built by Rehan Mohammed -- the world record subset sum solver.*
+*Built by Rehan Muhammed -- the world record subset sum solver.*
