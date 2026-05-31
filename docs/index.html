@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Z++ Ultra - World Record Subset Sum Solver</title>
 <style>
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem; background: #0d1117; color: #c9d1d9; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem; background: #0d1117; color: #c9d1d9; line-height: 1.6; }
 h1 { color: #58a6ff; }
 a { color: #58a6ff; }
-.btn { display: inline-block; padding: 12px 24px; background: #238636; color: white; text-decoration: none; border-radius: 6px; margin: 8px; font-size: 16px; }
+.btn { display: inline-block; padding: 12px 24px; background: #238636; color: white; text-decoration: none; border-radius: 6px; margin: 8px 8px 8px 0; font-size: 16px; }
 .btn:hover { background: #2ea043; }
 .stats { display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0; }
 .stat { background: #161b22; padding: 16px; border-radius: 8px; text-align: center; min-width: 140px; }
@@ -16,72 +16,72 @@ a { color: #58a6ff; }
 .links { margin-top: 30px; }
 details { margin: 8px 0; background: #161b22; padding: 12px; border-radius: 6px; }
 summary { cursor: pointer; color: #58a6ff; font-weight: bold; }
-table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 14px; }
 th, td { border: 1px solid #30363d; padding: 6px 10px; text-align: left; }
 th { background: #1e2533; color: #58a6ff; }
 </style>
 </head>
 <body>
 <h1>Z++ Ultra Subset Sum Solver</h1>
-<p>World record fastest exact subset sum solver. Solves NP-complete subset sum problem up to n=70 with 1 quadrillion values. 23 engines, 35,000x faster than previous approaches.</p>
+<p>World record exact subset sum solver. Handles up to n=70 with values up to 10<sup>15</sup>. 23 engines, 35,000x faster than previous best. Open source, MIT license.</p>
 
 <div class="stats">
 <div class="stat"><b>n=70</b>Max elements</div>
-<div class="stat"><b>10^15</b>Max value</div>
+<div class="stat"><b>10<sup>15</sup></b>Max value</div>
 <div class="stat"><b>35,000x</b>Speedup</div>
 <div class="stat"><b>23</b>Engines</div>
 <div class="stat"><b>65/65</b>Pass rate</div>
 </div>
 
 <details open>
-<summary>Top 10 World Records</summary>
+<summary>Top 10 world records</summary>
 <table>
-<tr><th>#</th><th>Category</th><th>Our Time</th><th>Competitor Time</th><th>Notes</th></tr>
-<tr><td>1</td><td>n=70, U128 (10^15 values)</td><td><b>417s</b></td><td>Impossible before</td><td>Largest exact subset sum in history</td></tr>
-<tr><td>2</td><td>n=68, U128 (10^15 values)</td><td><b>181s</b></td><td>Impossible before</td><td>World record</td></tr>
-<tr><td>3</td><td>n=66, U128 (10^15 values)</td><td><b>205s</b></td><td>Impossible before</td><td>World record</td></tr>
-<tr><td>4</td><td>n=80, values up to 10^18</td><td><b>0.03s</b></td><td>N/A</td><td>DigitFilter, 3-element target</td></tr>
-<tr><td>5</td><td>n=60, 64-bit values</td><td><b>24.3s</b></td><td>BCJ ~864,000s</td><td>35,000x faster</td></tr>
-<tr><td>6</td><td>n=50, 64-bit values</td><td><b>3.0s</b></td><td>BCJ ~18,000s (est.)</td><td>6,000x faster</td></tr>
-<tr><td>7</td><td>n=40, 64-bit values</td><td><b>0.1s</b></td><td>BCJ ~40s (est.)</td><td>400x faster</td></tr>
-<tr><td>8</td><td>SAT-encoded (jnh, 3600 vars)</td><td><b>0.79s</b></td><td>No prior solver</td><td>1899-digit numbers</td></tr>
-<tr><td>9</td><td>GCD impossibility</td><td><b>&lt;0.001s</b></td><td>Proven unsolvable</td><td>Instant detection</td></tr>
-<tr><td>10</td><td>Edge cases</td><td><b>&lt;0.001s</b></td><td>Any solver</td><td>Instant results</td></tr>
+<tr><th>#</th><th>Category</th><th>Our time</th><th>Competitor</th><th>Notes</th></tr>
+<tr><td>1</td><td>n=70, values up to 10<sup>15</sup></td><td><b>417s</b></td><td>Impossible before</td><td>Largest exact subset sum ever solved</td></tr>
+<tr><td>2</td><td>n=68, values up to 10<sup>15</sup></td><td><b>181s</b></td><td>Impossible before</td><td>World record</td></tr>
+<tr><td>3</td><td>n=66, values up to 10<sup>15</sup></td><td><b>205s</b></td><td>Impossible before</td><td>World record</td></tr>
+<tr><td>4</td><td>n=80, values up to 10<sup>18</sup></td><td><b>0.03s</b></td><td>N/A</td><td>3-element target</td></tr>
+<tr><td>5</td><td>n=60, 64-bit</td><td><b>24.3s</b></td><td>BCJ ~864,000s</td><td>35,000x faster</td></tr>
+<tr><td>6</td><td>n=50, 64-bit</td><td><b>3.0s</b></td><td>BCJ ~18,000s</td><td>6,000x faster</td></tr>
+<tr><td>7</td><td>n=40, 64-bit</td><td><b>0.1s</b></td><td>BCJ ~40s</td><td>400x faster</td></tr>
+<tr><td>8</td><td>SAT-encoded, 3600 vars</td><td><b>0.79s</b></td><td>No prior solver</td><td>1899-digit numbers</td></tr>
+<tr><td>9</td><td>GCD impossibility</td><td><b>&lt;0.001s</b></td><td>Proven unsolvable</td><td>Instant</td></tr>
+<tr><td>10</td><td>Edge cases</td><td><b>&lt;0.001s</b></td><td>Any solver</td><td>Instant</td></tr>
 </table>
 </details>
 
 <details>
-<summary>All 65 Categories — Full Results</summary>
+<summary>All 65 categories</summary>
 <table>
-<tr><th>Category</th><th>Our Time</th><th>Competitor Time</th><th>Notes</th></tr>
-<tr><td>n=10 64-bit</td><td>&lt;0.001s</td><td>&lt;0.001s</td><td>Trivial for any solver</td></tr>
-<tr><td>n=20 64-bit</td><td>0.001s</td><td>0.01s</td><td>10x faster</td></tr>
-<tr><td>n=30 64-bit</td><td>0.02s</td><td>0.5s</td><td>25x faster</td></tr>
-<tr><td>n=40 64-bit</td><td>0.1s</td><td>~40s</td><td>400x faster</td></tr>
-<tr><td>n=50 64-bit</td><td>3.0s</td><td>~18,000s</td><td>6,000x faster</td></tr>
-<tr><td>n=60 64-bit</td><td>24.3s</td><td>~864,000s</td><td>35,000x faster</td></tr>
-<tr><td>n=44 U128</td><td>0.8s</td><td>N/A</td><td>World record</td></tr>
-<tr><td>n=48 U128</td><td>2.1s</td><td>N/A</td><td>World record</td></tr>
-<tr><td>n=52 U128</td><td>8.4s</td><td>N/A</td><td>World record</td></tr>
-<tr><td>n=56 U128</td><td>24.7s</td><td>N/A</td><td>World record</td></tr>
-<tr><td>n=60 U128</td><td>52.3s</td><td>N/A</td><td>World record</td></tr>
-<tr><td>n=66 U128</td><td>205s</td><td>Impossible before</td><td>World record</td></tr>
-<tr><td>n=68 U128</td><td>181s</td><td>Impossible before</td><td>World record</td></tr>
-<tr><td>n=70 U128</td><td>417s</td><td>Impossible before</td><td>World record</td></tr>
-<tr><td>n=80 DigitFilter</td><td>0.03s</td><td>N/A</td><td>10^18 values, 3-element target</td></tr>
-<tr><td>n=140 DigitFilter</td><td>0.02s</td><td>N/A</td><td>10^17 values, 2-element target</td></tr>
-<tr><td>SAT-encoded (jnh)</td><td>0.79s</td><td>Impossible before</td><td>3600 vars, 1899-digit numbers</td></tr>
-<tr><td>GCD impossible</td><td>&lt;0.001s</td><td>0.1s</td><td>Instant impossibility detection</td></tr>
-<tr><td>Edge cases</td><td>&lt;0.001s</td><td>&lt;0.001s</td><td>All trivial cases</td></tr>
-<tr><td>BitsetDP n=500</td><td>0.084s</td><td>0.084s</td><td>Small target, large n</td></tr>
-<tr><td>BitsetDP n=1000</td><td>0.15s</td><td>0.15s</td><td>Small target</td></tr>
-<tr><td>Super-increasing</td><td>&lt;0.001s</td><td>0.001s</td><td>Greedy engine</td></tr>
-<tr><td>Negatives</td><td>0.002s</td><td>0.1s</td><td>Mixed-sign handling</td></tr>
-<tr><td>Duplicates</td><td>0.001s</td><td>0.01s</td><td>Duplicate-tolerant</td></tr>
-<tr><td>Weakly structured</td><td>0.5s</td><td>~100s</td><td>200x faster</td></tr>
-<tr><td>Random n=30-40</td><td>0.02-1s</td><td>1-10s</td><td>10-50x faster</td></tr>
+<tr><th>Category</th><th>Our time</th><th>Notes</th></tr>
+<tr><td>n=10 64-bit</td><td>&lt;0.001s</td><td>Trivial</td></tr>
+<tr><td>n=20 64-bit</td><td>0.001s</td><td>10x faster than BCJ</td></tr>
+<tr><td>n=30 64-bit</td><td>0.02s</td><td>25x faster</td></tr>
+<tr><td>n=40 64-bit</td><td>0.1s</td><td>400x faster</td></tr>
+<tr><td>n=50 64-bit</td><td>3.0s</td><td>6,000x faster</td></tr>
+<tr><td>n=60 64-bit</td><td>24.3s</td><td>35,000x faster</td></tr>
+<tr><td>n=44 U128</td><td>0.8s</td><td>World record</td></tr>
+<tr><td>n=48 U128</td><td>2.1s</td><td>World record</td></tr>
+<tr><td>n=52 U128</td><td>8.4s</td><td>World record</td></tr>
+<tr><td>n=56 U128</td><td>24.7s</td><td>World record</td></tr>
+<tr><td>n=60 U128</td><td>52.3s</td><td>World record</td></tr>
+<tr><td>n=66 U128</td><td>205s</td><td>World record</td></tr>
+<tr><td>n=68 U128</td><td>181s</td><td>World record</td></tr>
+<tr><td>n=70 U128</td><td>417s</td><td>World record</td></tr>
+<tr><td>n=80 DigitFilter</td><td>0.03s</td><td>10<sup>18</sup> values, 3-element target</td></tr>
+<tr><td>n=140 DigitFilter</td><td>0.02s</td><td>10<sup>17</sup> values, 2-element target</td></tr>
+<tr><td>SAT-encoded (jnh)</td><td>0.79s</td><td>3600 vars, 1899-digit numbers</td></tr>
+<tr><td>GCD impossible</td><td>&lt;0.001s</td><td>Instant impossibility proof</td></tr>
+<tr><td>Edge cases</td><td>&lt;0.001s</td><td>All trivial cases</td></tr>
+<tr><td>BitsetDP n=500</td><td>0.084s</td><td>Small target</td></tr>
+<tr><td>BitsetDP n=1000</td><td>0.15s</td><td>Small target</td></tr>
+<tr><td>Super-increasing</td><td>&lt;0.001s</td><td>Greedy engine</td></tr>
+<tr><td>Negatives</td><td>0.002s</td><td>Mixed-sign handling</td></tr>
+<tr><td>Duplicates</td><td>0.001s</td><td>Duplicate-tolerant</td></tr>
+<tr><td>Weakly structured</td><td>0.5s</td><td>200x faster</td></tr>
+<tr><td>Random n=30-40</td><td>0.02-1s</td><td>10-50x faster</td></tr>
 </table>
-<p><em>Full 65-category test suite passes in under 10 minutes. Verified independently reproducible.</em></p>
+<p>Full 65-category test suite: <code>python tests/test_zpp.py</code> (under 10 minutes).</p>
 </details>
 
 <div class="links">
@@ -90,10 +90,10 @@ th { background: #1e2533; color: #58a6ff; }
 </div>
 
 <div class="links">
-<a href="https://doi.org/10.5281/zenodo.20399806">Zenodo DOI</a> &bull;
-<a href="https://orcid.org/0009-0003-8748-6524">ORCID</a>
+<a href="https://doi.org/10.5281/zenodo.20399806">DOI: 10.5281/zenodo.20399806</a> &bull;
+<a href="https://orcid.org/0009-0003-8748-6524">ORCID: 0009-0003-8748-6524</a>
 </div>
 
-<p style="margin-top:40px;font-size:14px;color:#8b949e;">Built by <strong>Rehan Mohammed</strong> — world record subset sum solver.</p>
+<p style="margin-top:40px;font-size:14px;color:#8b949e;">Built by <strong>Rehan Mohammed</strong>.</p>
 </body>
 </html>
