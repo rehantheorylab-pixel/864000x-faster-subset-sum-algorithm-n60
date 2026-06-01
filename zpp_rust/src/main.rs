@@ -14,6 +14,7 @@ mod bitset;
 mod controller;
 mod engines;
 mod gdvs;
+mod gpu;
 mod knapsack;
 mod learning;
 mod preprocess;
@@ -241,20 +242,21 @@ fn solve_and_report(numbers: Vec<BigUint>, target: BigUint) {
                 }
             } else {
                 let red_profile = Profile::new(red.numbers.clone(), red.target.clone());
+                // Bit-size aware timeout — no u128_safe() gate.
+                // Big integer inputs get the same aggressive engines as
+                // u128 inputs, thanks to BigUint fallback paths.
                 let timeout = if red_profile.looks_sat_encoded() {
                     Duration::from_secs(600)
-                } else if red_profile.u128_safe() && red_profile.n >= 44 {
-                    if red_profile.n > 100 {
-                        Duration::from_secs(600)
-                    } else if red_profile.n > 80 {
-                        Duration::from_secs(600)
-                    } else if red_profile.n > 68 {
-                        Duration::from_secs(600)
-                    } else if red_profile.n > 64 {
-                        Duration::from_secs(7200)
-                    } else {
-                        Duration::from_secs(600)
-                    }
+                } else if red_profile.n > 100 {
+                    Duration::from_secs(600)
+                } else if red_profile.n > 80 {
+                    Duration::from_secs(600)
+                } else if red_profile.n > 68 {
+                    Duration::from_secs(600)
+                } else if red_profile.n > 64 {
+                    Duration::from_secs(7200)
+                } else if red_profile.n >= 44 {
+                    Duration::from_secs(600)
                 } else if red_profile.n > 60 {
                     Duration::from_secs(600)
                 } else {
@@ -263,12 +265,14 @@ fn solve_and_report(numbers: Vec<BigUint>, target: BigUint) {
                 let mut learn = LearningStore::load();
 
                 // SAT-encoded giants: ColumnSAT only first.
+                // The u128_safe() gate is REMOVED — all inputs >= 44
+                // get the full engine portfolio.  Big integers use
+                // BigUint paths (linear time growth with bit length).
                 let mut out = if red_profile.looks_sat_encoded() {
                     let sat_only: Vec<Box<dyn Engine>> =
                         vec![engines::build("ColumnSAT").unwrap()];
                     race(red_profile.clone(), sat_only, timeout)
-                } else if red_profile.u128_safe() && red_profile.n >= 44 && red_profile.n <= 140
-                {
+                } else if red_profile.n >= 44 && red_profile.n <= 140 {
                     let names = controller::pick_engines(&red_profile);
                     let all: Vec<Box<dyn Engine>> = names
                         .iter()
@@ -276,12 +280,12 @@ fn solve_and_report(numbers: Vec<BigUint>, target: BigUint) {
                         .collect();
                     race(red_profile.clone(), all, timeout)
                 } else {
-                    Outcome {
-                        solution: None,
-                        winner: "Timeout",
-                        proved_impossible: false,
-                        wall: Duration::from_nanos(0),
-                    }
+                    let names = controller::pick_engines(&red_profile);
+                    let all: Vec<Box<dyn Engine>> = names
+                        .iter()
+                        .filter_map(|n| engines::build(n))
+                        .collect();
+                    race(red_profile.clone(), all, timeout)
                 };
 
                 if out.solution.is_none() && !out.proved_impossible {
