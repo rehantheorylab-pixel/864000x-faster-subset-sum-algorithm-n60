@@ -15,6 +15,9 @@ path = "src/lib.rs"
 
 [profile.release]
 opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
 strip = true
 
 [profile.release-debuginfo]

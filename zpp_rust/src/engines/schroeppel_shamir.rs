@@ -27,6 +27,8 @@
 
 use std::cmp::Reverse;
 use std::collections::BinaryHeap;
+use std::collections::HashSet;
+use std::sync::Arc;
 use std::thread;
 
 use num_bigint::BigUint;
@@ -162,10 +164,11 @@ impl SchroeppelShamirEngine {
 
         let mut ops: u64 = 0;
         let mut maybe_match: Option<(u32, u32, u32, u32)> = None;
+        let mut seen: HashSet<u128> = HashSet::with_capacity(1024);
 
         while !min_heap.is_empty() && !max_heap.is_empty() {
             ops += 1;
-            if (ops & 0xFFFF) == 0 && sh.stopped() {
+            if (ops & 0x3FF) == 0 && sh.stopped() {
                 return;
             }
 
@@ -186,8 +189,8 @@ impl SchroeppelShamirEngine {
                 }
             };
 
-            // Blackboard cross-check: skip totals already discovered.
-            if !sh.try_note_sum(&BigUint::from(total)) {
+            // Dedup seen sums locally (no BigUint conversion in hot loop)
+            if !seen.insert(total) {
                 // Already seen — advance both sides.
                 min_heap.pop();
                 max_heap.pop();
@@ -367,7 +370,7 @@ fn build_sums_u128_par(elems: &[u128], target: u128) -> Vec<(u128, u64)> {
         return build_sums_u128(elems, target);
     }
     let total = 1u64 << n;
-    let ncpus = thread::available_parallelism().map(|n| n.get()).unwrap_or(4).min(8);
+    let ncpus = thread::available_parallelism().map(|n| n.get()).unwrap_or(4);
     let chunk = (total / ncpus as u64).max(1);
     let mut handles = Vec::with_capacity(ncpus);
 
@@ -377,12 +380,15 @@ fn build_sums_u128_par(elems: &[u128], target: u128) -> Vec<(u128, u64)> {
         pref[i + 1] = pref[i].wrapping_add(elems[i]);
     }
 
+    let pref = Arc::new(pref);
+    let elems = Arc::new(elems.to_vec());
+
     for tid in 0..ncpus {
         let start = tid as u64 * chunk;
         let end = if tid + 1 == ncpus { total } else { start + chunk };
         if start >= end { continue; }
-        let elems = elems.to_vec();
-        let pref = pref.clone();
+        let elems = Arc::clone(&elems);
+        let pref = Arc::clone(&pref);
         handles.push(thread::spawn(move || {
             let cap = (end - start) as usize;
             let mut sums: Vec<(u128, u64)> = Vec::with_capacity(cap);
