@@ -219,6 +219,11 @@ pub fn schedule(
         scored.push(ScoredEngine::new("BitsetDP", base2 + 96.0));
     }
 
+    // GroupDecompose: 6-group hierarchical for n>=28
+    if p.n >= 28 && p.n <= 70 && p.u128_safe() {
+        scored.push(ScoredEngine::new("GroupDecompose", base2 + 75.0));
+    }
+
     // ====================================================================
     // Phase 3: BigUint bridge fallback
     // ====================================================================
@@ -298,6 +303,7 @@ pub fn all_engine_names() -> Vec<&'static str> {
         "MD-MITM", "PMAS-Balance", "PMAS-Difference", "APDE",
         "BCJ", "HGJ", "Bonnetain",
         "BigUintBcj", "BigUintHgj", "BigUintBonnetain",
+        "GroupDecompose",
     ]
 }
 

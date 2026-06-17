@@ -31,6 +31,7 @@ pub mod split_solver;
 pub mod cascade_filter;
 pub mod turbospec;
 pub mod buint_bridge;
+pub mod group_decompose;
 
 use crate::controller::Engine;
 
@@ -72,6 +73,7 @@ pub fn build(name: &'static str) -> Option<Box<dyn Engine>> {
         "BigUintBcj" => Some(Box::new(buint_bridge::BigUintBcj)),
         "BigUintHgj" => Some(Box::new(buint_bridge::BigUintHgj)),
         "BigUintBonnetain" => Some(Box::new(buint_bridge::BigUintBonnetain)),
+        "GroupDecompose" => Some(Box::new(group_decompose::GroupDecomposeEngine)),
 
         _ => None,
     }
