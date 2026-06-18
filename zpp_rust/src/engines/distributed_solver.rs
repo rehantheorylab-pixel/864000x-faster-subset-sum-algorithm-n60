@@ -24,7 +24,7 @@ impl DistributedSolver {
 
     fn choose_and_run(sh: &Shared, nw: usize) {
         let p = &sh.profile;
-        if p.n >= 16 && p.n <= 70 && p.u128_safe() { Self::ss_quadrant_distributed(sh, nw); }
+        if p.n >= 16 && p.n <= 50 && p.u128_safe() { Self::ss_quadrant_distributed(sh, nw); }
         else if p.n > 70 || !p.u128_safe() { Self::md_mitm_distributed(sh, nw); }
         else { Self::sum_range_partitioned(sh, nw); }
     }

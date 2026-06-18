@@ -20,7 +20,7 @@ impl Engine for SplitSolver {
 
     fn run(&self, sh: &Shared) {
         let p = &sh.profile;
-        if p.n < 4 || p.target.is_zero() {
+        if p.n < 4 || p.n > 48 || p.target.is_zero() {
             return;
         }
 

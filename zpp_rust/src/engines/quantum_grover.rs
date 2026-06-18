@@ -9,6 +9,7 @@ pub struct QuantumGrover;
 impl QuantumGrover {
     fn run_grover(sh: &Shared) {
         let p = &sh.profile; let n = p.n;
+        if n > 30 { return; } // Cap to prevent exponential allocations
         if n > 35 { Self::hybrid_approach(sh, n, &p.numbers, &p.target); return; }
         let mut found = false; let mut solution = Vec::new();
         Self::simulate_grover(sh, n, &p.numbers, &p.target, &mut found, &mut solution);

@@ -714,6 +714,7 @@ impl Engine for UnifiedSolver {
     }
 
     fn run(&self, sh: &Shared) {
+        if sh.profile.n > 50 { return; } // Cap heavy strategies
         Self::run_phases(sh);
     }
 }

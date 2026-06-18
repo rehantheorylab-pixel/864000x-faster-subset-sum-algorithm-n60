@@ -10,6 +10,7 @@ pub struct TurboSpecEngine;
 impl TurboSpecEngine {
     fn run_turbo(sh: &Shared) {
         let p = &sh.profile;
+        if p.n > 30 { return; } // Guard against exponential blowup
         if sh.stopped() { return; }
         // Hypothesis 1: ascending order
         let nums1 = { let mut v = p.numbers.clone(); v.sort(); v };

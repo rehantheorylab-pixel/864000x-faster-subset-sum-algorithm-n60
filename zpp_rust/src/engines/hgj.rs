@@ -25,7 +25,7 @@ use crate::controller::{Engine, Shared};
 pub struct HgjEngine;
 
 const HGJ_MIN_N: usize = 40;
-const HGJ_MAX_N: usize = 80;
+const HGJ_MAX_N: usize = 28;
 const HGJ_ROUNDS: usize = 16;
 
 struct Rng(u64);
