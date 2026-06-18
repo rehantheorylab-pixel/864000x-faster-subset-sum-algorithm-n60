@@ -233,6 +233,14 @@ pub fn schedule(
         scored.push(ScoredEngine::new("BitsetDP", base2 + 96.0));
     }
 
+    // HashMITM: u128 HashMap collision — fastest for n=20-48
+    if p.n >= 20 && p.n <= 48 && p.u128_safe() {
+        let half = p.n / 2;
+        if half <= 24 { // 2^24 max = 16M entries = safe
+            scored.push(ScoredEngine::new("HashMITM", phase_score(2, 99.9)));
+        }
+    }
+
     // MicroDecompose: 2-element groups, fastest for n=20-60
     if p.n >= 20 && p.n <= 60 && p.u128_safe() {
         scored.push(ScoredEngine::new("MicroDecompose", phase_score(2, 99.5)));
@@ -327,7 +335,7 @@ pub fn all_engine_names() -> Vec<&'static str> {
         "MD-MITM", "PMAS-Balance", "PMAS-Difference", "APDE",
         "BCJ", "HGJ", "Bonnetain",
         "BigUintBcj", "BigUintHgj", "BigUintBonnetain",
-        "GroupDecompose", "AdaptiveFunnel", "MicroDecompose",
+        "GroupDecompose", "AdaptiveFunnel", "MicroDecompose", "HashMITM",
     ]
 }
 

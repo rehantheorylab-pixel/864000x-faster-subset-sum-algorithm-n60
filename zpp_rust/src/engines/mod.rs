@@ -34,6 +34,7 @@ pub mod buint_bridge;
 pub mod group_decompose;
 pub mod adaptive_funnel;
 pub mod micro_decompose;
+pub mod hash_mitm;
 
 use crate::controller::Engine;
 
@@ -78,6 +79,7 @@ pub fn build(name: &'static str) -> Option<Box<dyn Engine>> {
         "GroupDecompose" => Some(Box::new(group_decompose::GroupDecomposeEngine)),
         "AdaptiveFunnel" => Some(Box::new(adaptive_funnel::AdaptiveFunnelEngine)),
         "MicroDecompose" => Some(Box::new(micro_decompose::MicroDecomposeEngine)),
+        "HashMITM" => Some(Box::new(hash_mitm::HashMitmEngine)),
 
         _ => None,
     }
