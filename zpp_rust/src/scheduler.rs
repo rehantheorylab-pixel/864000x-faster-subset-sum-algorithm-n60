@@ -233,6 +233,10 @@ pub fn schedule(
         scored.push(ScoredEngine::new("BitsetDP", base2 + 96.0));
     }
 
+    if p.n >= 10 && p.n <= 80 && p.u128_safe() {
+        scored.push(ScoredEngine::new("Genetic", phase_score(2, 70.0)));
+    }
+
     // HashMITM: u128 HashMap collision — fastest for n=20-48
     if p.n >= 20 && p.n <= 48 && p.u128_safe() {
         let half = p.n / 2;
@@ -335,7 +339,7 @@ pub fn all_engine_names() -> Vec<&'static str> {
         "MD-MITM", "PMAS-Balance", "PMAS-Difference", "APDE",
         "BCJ", "HGJ", "Bonnetain",
         "BigUintBcj", "BigUintHgj", "BigUintBonnetain",
-        "GroupDecompose", "AdaptiveFunnel", "MicroDecompose", "HashMITM",
+        "GroupDecompose", "AdaptiveFunnel", "MicroDecompose", "HashMITM", "Genetic",
     ]
 }
 
