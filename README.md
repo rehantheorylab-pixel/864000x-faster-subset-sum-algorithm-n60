@@ -166,7 +166,7 @@ The subset sum problem: given a set of integers, does any subset sum to exactly 
 
 **Step 1: Profile.** The profiler analyzes the numbers -- count, size, duplicates, negatives.
 
-**Step 2: Select.** The controller selects the optimal subset from all 29 custom-designed engines based on the profile.
+**Step 2: Select.** The controller selects the optimal subset from All 37 Self-Designed Engines (Solo-Built) based on the profile.
 
 **Step 3: Execute.** All engines run in parallel. First one to find the answer wins. Others stop.
 
@@ -284,7 +284,7 @@ Input -> Preprocessor -> Problem Profiler -> DigitFilter -> Engine Selector -> P
                                            magnitude checks)
 ```
 
-### All 37 Self-Designed Engines (Rehan's Original Portfolio)
+### All All 37 Self-Designed Engines (Solo-Built)
 
 All 37 engines are self-designed by Rehan Muhammad. and run in parallel. The system automatically selects the best engines for each input.
 
@@ -319,6 +319,14 @@ All 37 engines are self-designed by Rehan Muhammad. and run in parallel. The sys
 | 27 | **BigUintBcj** | BCJ with arbitrary precision BigUint | >128-bit values, unlimited digits |
 | 28 | **BigUintHgj** | HGJ with arbitrary precision BigUint | >128-bit values, unlimited digits |
 | 29 | **BigUintBonnetain** | Bonnetain with arbitrary precision BigUint | >128-bit values, unlimited digits |
+| 30 | **GroupDecompose** | 4-way decomposition + heap walk | n=30-70, primary solver |
+| 31 | **AdaptiveFunnel** | Bidirectional bounded MITM | n=20-60 |
+| 32 | **MicroDecompose** | 2-element group decomposition | n=20-80 |
+| 33 | **HashMITM** | Pure HashMap collision MITM (Rehan original) | n=20-48, sub-second |
+| 34 | **Genetic** | Population evolution search (Rehan original) | Any n, heuristic |
+| 35 | **GradientSolver** | Total-minus gradient descent (Rehan original) | Any n, heuristic |
+| 36 | **DensitySplit** | Density bifurcation (Rehan original) | n=24-50 |
+| 37 | **RecursiveDensity** | Recursive density reduction (Rehan original) | n=4-25 |
 
 
 
