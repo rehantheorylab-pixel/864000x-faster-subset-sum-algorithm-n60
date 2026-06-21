@@ -1,3 +1,6 @@
+
+> **This repository has moved to: [github.com/rehantheorylab-pixel/864000x-faster-subset-sum-algorithm-n60](https://github.com/rehantheorylab-pixel/864000x-faster-subset-sum-algorithm-n60)**
+> Please update your links and stars!
 # Z++ Ultimate Engine -- Fastest Subset Sum Solver on Earth (World Record, Breakthrough Discovery)
 
 **The world's fastest exact subset sum solver. Solo-built by Rehan Muhammad — 37 self-designed engines, zero external algorithm code. Holds verified world records across all tested categories. Open source, working code, not claims. Solves n=10 to n=80 on consumer hardware with NO upper limit on value size (10^100000+ digits).** (BigUint arbitrary precision). Handles values with 10<sup>100000</sup>+ decimal digits per element -- exceeding any possible world record. Open source, standalone binary available.**
