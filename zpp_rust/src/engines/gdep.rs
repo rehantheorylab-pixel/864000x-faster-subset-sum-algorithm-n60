@@ -32,6 +32,7 @@ impl Engine for GdepEngine {
 impl GdepEngine {
     fn run_u128(&self, sh: &Shared) {
         let p = &sh.profile;
+        if p.n > 25 { return; } // DFS depth cap for random inputs
         let target = p.target_u128();
         let nums = p.numbers_u128();
         let n = nums.len();

@@ -11,13 +11,12 @@ impl Engine for TinyBruteEngine {
 
     fn run(&self, sh: &Shared) {
         let p = &sh.profile;
-        if p.n > 12 { return; }
         if sh.stopped() { return; }
-
-        if p.u128_safe() {
-            self.run_u128(sh);
-        } else {
-            self.run_big(sh);
+        if p.n <= 12 {
+            if p.u128_safe() { self.run_u128(sh); }
+            else { self.run_big(sh); }
+        } else if p.n <= 40 && p.u128_safe() {
+            self.random_sample(sh); // Adaptive for large n
         }
     }
 }
@@ -77,6 +76,46 @@ impl TinyBruteEngine {
                 }
                 sh.report(sol, "TinyBrute");
                 return;
+            }
+        }
+    }
+
+    fn random_sample(&self, sh: &Shared) {
+        let nums = sh.profile.numbers_u128();
+        let target = sh.profile.target_u128();
+        let n = nums.len();
+        let seed = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap_or_default().as_nanos() as u64;
+        for i in 0..500_000 {
+            if sh.stopped() { return; }
+            let bits = seed.wrapping_mul(i + 1) ^ seed.wrapping_shl(i as u32 % 13);
+            let mut sum: u128 = 0;
+            let mut m = bits;
+            let mut count = 0;
+            for _ in 0..n.min(64) {
+                if m & 1 != 0 {
+                    let idx = (m as usize) % n;
+                    sum = sum.wrapping_add(nums[idx]);
+                    count += 1;
+                    if count > 12 { break; }
+                }
+                m >>= 1;
+                if m == 0 { break; }
+            }
+            if sum == target {
+                let mut sol = Vec::new();
+                let mut m2 = bits;
+                let mut c2 = 0;
+                for _ in 0..n.min(64) {
+                    if m2 & 1 != 0 {
+                        let idx = (m2 as usize) % n;
+                        sol.push(BigUint::from(nums[idx]));
+                        c2 += 1;
+                        if c2 > 12 { break; }
+                    }
+                    m2 >>= 1;
+                    if m2 == 0 { break; }
+                }
+                if !sol.is_empty() { sh.report(sol, "TinyBrute"); return; }
             }
         }
     }

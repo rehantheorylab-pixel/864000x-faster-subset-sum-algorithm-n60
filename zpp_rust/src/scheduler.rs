@@ -233,14 +233,38 @@ pub fn schedule(
         scored.push(ScoredEngine::new("BitsetDP", base2 + 96.0));
     }
 
-    if p.n >= 10 && p.n <= 80 && p.u128_safe() {
+    // RecursiveDensity: P=NP Step 2 — recursive density reduction
+    if p.n >= 4 && p.n <= 25 && p.u128_safe() {
+        scored.push(ScoredEngine::new("RecursiveDensity", phase_score(2, 80.0)));
+    }
+
+    // LLLSolver: lattice reduction for low-density (Path to P=NP) — experimental
+    /*
+    if p.n >= 4 && p.n <= 30 {
+        let density = p.n as f64 / p.max_val.bits() as f64;
+        if density <= 0.65 {
+            scored.push(ScoredEngine::new("LLLSolver", phase_score(1, 100.0)));
+        }
+    }
+    */
+
+    // DensitySplit: Novel density bifurcation — experimental
+    if p.n >= 24 && p.n <= 50 && p.u128_safe() {
+        scored.push(ScoredEngine::new("DensitySplit", phase_score(2, 75.0)));
+    }
+
+    if p.n >= 5 && p.u128_safe() {
+        scored.push(ScoredEngine::new("GradientSolver", phase_score(1, 89.0)));
+    }
+
+    if p.n >= 10 && p.u128_safe() {
         scored.push(ScoredEngine::new("Genetic", phase_score(2, 70.0)));
     }
 
-    // HashMITM: u128 HashMap collision — fastest for n=20-48
-    if p.n >= 20 && p.n <= 48 && p.u128_safe() {
+    // HashMITM: for all n but half capped at 2^22
+    if p.n >= 20 && p.u128_safe() {
         let half = p.n / 2;
-        if half <= 24 { // 2^24 max = 16M entries = safe
+        if half <= 24 {
             scored.push(ScoredEngine::new("HashMITM", phase_score(2, 99.9)));
         }
     }
@@ -339,7 +363,7 @@ pub fn all_engine_names() -> Vec<&'static str> {
         "MD-MITM", "PMAS-Balance", "PMAS-Difference", "APDE",
         "BCJ", "HGJ", "Bonnetain",
         "BigUintBcj", "BigUintHgj", "BigUintBonnetain",
-        "GroupDecompose", "AdaptiveFunnel", "MicroDecompose", "HashMITM", "Genetic",
+        "GroupDecompose", "AdaptiveFunnel", "MicroDecompose", "HashMITM", "Genetic", "GradientSolver", "DensitySplit", "LLLSolver", "RecursiveDensity",
     ]
 }
 

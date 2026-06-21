@@ -114,7 +114,7 @@ pub fn race(profile: Profile, engines: Vec<Box<dyn Engine>>, max_time: Duration)
             let engines = Arc::clone(&engines);
             handles.push(thread::spawn(move || { engines[idx].run(&sh); }));
         }
-        thread::sleep(Duration::from_millis(20));
+        thread::sleep(Duration::from_millis(100)); // Give fast engines 100ms head start
     }
     // Wait on Condvar with timeout instead of busy-polling.
     let mut guard = shared.solution.lock().unwrap();

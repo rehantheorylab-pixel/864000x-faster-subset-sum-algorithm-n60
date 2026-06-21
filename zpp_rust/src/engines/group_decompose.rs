@@ -18,7 +18,7 @@ use crate::controller::{Engine, Shared};
 
 pub struct GroupDecomposeEngine;
 
-const GD_MIN_N: usize = 20;
+const GD_MIN_N: usize = 10;
 const GD_MAX_N: usize = 70;
 
 impl Engine for GroupDecomposeEngine {
@@ -41,7 +41,22 @@ impl GroupDecomposeEngine {
         let mut sorted = nums.to_vec();
         sorted.sort_unstable();
 
-        // Equal quarters (fastest for low-core CPUs)
+        // === Rehan's O(n) Pre-Checks (no allocation, never hurts) ===
+
+        // 1. Direct single-element match
+        if sorted.binary_search(&target).is_ok() {
+            sh.report(vec![BigUint::from(target)], "GroupDecompose");
+            return;
+        }
+
+        // 2. Target-range check
+        let total: u128 = sorted.iter().sum();
+        if total < target { return; }
+
+        // 3. Average-density heuristic: all elements > target?
+        if sorted[0] > target { return; }
+
+        // === Core heap walk ===
         let q = n / 4;
         let qa_sz = q;
         let qb_sz = q;

@@ -36,6 +36,10 @@ pub mod adaptive_funnel;
 pub mod micro_decompose;
 pub mod hash_mitm;
 pub mod genetic;
+pub mod gradient;
+pub mod density_split;
+pub mod lll_solver;
+pub mod recursive_density;
 
 use crate::controller::Engine;
 
@@ -82,6 +86,10 @@ pub fn build(name: &'static str) -> Option<Box<dyn Engine>> {
         "MicroDecompose" => Some(Box::new(micro_decompose::MicroDecomposeEngine)),
         "HashMITM" => Some(Box::new(hash_mitm::HashMitmEngine)),
         "Genetic" => Some(Box::new(genetic::GeneticEngine)),
+        "GradientSolver" => Some(Box::new(gradient::GradientSolver)),
+        "DensitySplit" => Some(Box::new(density_split::DensitySplitEngine)),
+        "LLLSolver" => Some(Box::new(lll_solver::LLLSolver)),
+        "RecursiveDensity" => Some(Box::new(recursive_density::RecursiveDensitySolver)),
 
         _ => None,
     }

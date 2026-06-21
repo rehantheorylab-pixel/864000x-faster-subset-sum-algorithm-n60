@@ -15,7 +15,7 @@ impl Engine for MicroDecomposeEngine {
 
     fn run(&self, sh: &Shared) {
         let p = &sh.profile;
-        if p.n < 20 || p.n > 60 || !p.u128_safe() { return; }
+        if p.n < 20 || !p.u128_safe() { return; } // Works at any n — adaptive sampling
 
         let target = p.target_u128();
         let nums = p.numbers_u128();

@@ -1,6 +1,8 @@
 pub mod bitset;
 pub mod controller;
 pub mod engines;
+pub mod fast_hash;
+pub mod fraction;
 pub mod gdvs;
 pub mod gpu;
 pub mod gui;
